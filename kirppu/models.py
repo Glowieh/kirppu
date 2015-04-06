@@ -310,6 +310,7 @@ class Item(models.Model):
         max_length=8,
         default=ADULT_NO
     )
+    abandoned = models.BooleanField(default=False)
     # Has the user marked this item as printed?
     # Affects whether the item is shown in print view or not.
     printed = models.BooleanField(default=False)
@@ -319,7 +320,7 @@ class Item(models.Model):
     def __unicode__(self):
         return u"{name} ({code})".format(name=self.name, code=self.code)
 
-    as_dict = model_dict_fn("code", "name", "state", price="price_cents", vendor="vendor_id")
+    as_dict = model_dict_fn("code", "name", "state", "abandoned", price="price_cents", vendor="vendor_id")
 
     @property
     def price_cents(self):
